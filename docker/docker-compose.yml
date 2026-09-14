@@ -1,0 +1,7 @@
+services:
+  web:
+    image: cloudops-web:1.0
+    container_name: cloudops-web-compose
+    ports:
+      - "8081:80"
+    restart: unless-stopped
