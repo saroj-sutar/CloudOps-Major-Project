@@ -1,0 +1,28 @@
+name: CloudOps CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Validate project files
+        run: |
+          test -f application/index.html
+          test -f docker/Dockerfile
+          test -f docker/docker-compose.yml
+          test -f terraform/main.tf
+
+      - name: Build Docker image
+        run: |
+          docker build -t cloudops-web:ci -f docker/Dockerfile .
